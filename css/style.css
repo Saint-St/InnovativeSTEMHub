@@ -406,6 +406,170 @@ h3 {
     color: var(--color-white); /* Light Gray */
     z-index: 2;
 }
+/* ----- RESEARCH & PUBLICATIONS BOX ----- */
+.research-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.research-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    height: 250px;
+    background: var(--second-color); /* Deep Blue */
+    border-radius: 20px;
+    box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
+    overflow: hidden;
+}
+.research-box>i {
+    font-size: 50px;
+    color: #00B5E7; /* Bright Blue */
+    margin-bottom: 25px;
+}
+.research-box label {
+    font-size: 15px;
+    color: var(--color-white); /* Light Gray */
+}
+.research-box::after {
+    content: "";
+    position: absolute;
+    bottom: -100%;
+    background: var(--first-color); /* Royal Purple */
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+    z-index: 1;
+}
+.research-box:hover.research-box::after {
+    bottom: 0;
+}
+.research-box:hover.research-box i,
+.research-box:hover.research-box>h3,
+.research-box:hover.research-box>label {
+    color: var(--color-white); /* Light Gray */
+    z-index: 2;
+}
+
+/* ----- PROFESSIONAL DEVELOPMENT BOX ----- */
+.development-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.development-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    height: 250px;
+    background: var(--second-color); /* Deep Blue */
+    border-radius: 20px;
+    box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
+    overflow: hidden;
+}
+.development-box>i {
+    font-size: 50px;
+    color: #00B5E7; /* Bright Blue */
+    margin-bottom: 25px;
+}
+.development-box label {
+    font-size: 15px;
+    color: var(--color-white); /* Light Gray */
+}
+.development-box::after {
+    content: "";
+    position: absolute;
+    bottom: -100%;
+    background: var(--first-color); /* Royal Purple */
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+    z-index: 1;
+}
+.development-box:hover.development-box::after {
+    bottom: 0;
+}
+.development-box:hover.development-box i,
+.development-box:hover.development-box>h3,
+.development-box:hover.development-box>label {
+    color: var(--color-white); /* Light Gray */
+    z-index: 2;
+}
+/* ----- COMMUNITY SERVICE BOX ----- */
+.service-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.service-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    height: 250px;
+    background: var(--second-color); /* Deep Blue */
+    border-radius: 20px;
+    box-shadow: 1px 8px 10px 2px var(--first-shadow-color);
+    overflow: hidden;
+    padding: 20px;
+    text-align: center;
+}
+
+.service-box>i {
+    font-size: 50px;
+    color: #00B5E7; /* Bright Blue */
+    margin-bottom: 15px;
+}
+
+.service-box h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-white); /* Light Gray */
+    margin-bottom: 10px;
+}
+
+.service-box label {
+    font-size: 14px;
+    color: var(--color-white); /* Light Gray */
+    line-height: 1.5;
+}
+
+.service-box::after {
+    content: "";
+    position: absolute;
+    bottom: -100%;
+    background: var(--first-color); /* Royal Purple */
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+    z-index: 1;
+}
+
+.service-box:hover.service-box::after {
+    bottom: 0;
+}
+
+.service-box:hover.service-box i,
+.service-box:hover.service-box h3,
+.service-box:hover.service-box label {
+    color: var(--color-white); /* Light Gray */
+    z-index: 2;
+}
 
 /* ----- CONTACT BOX ----- */
 .contact-info {
