@@ -50,7 +50,7 @@ const sr = ScrollReveal({
 })
 /* download cv script*/
 function downloadCV(){
-  window.location.href="file/Dr.Atieno Mutende CV.pdf";
+  window.location.href="file/Dr.AtienoMutendeCV.pdf";
 }
 /* -- HOME -- */
 sr.reveal('.featured-text-card',{})
