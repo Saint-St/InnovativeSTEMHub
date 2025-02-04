@@ -48,7 +48,10 @@ const sr = ScrollReveal({
       duration: 2000,
       reset: true     
 })
-
+/* download cv script*/
+function downloadCV(){
+  window.location.href="file/cv.pdf";
+}
 /* -- HOME -- */
 sr.reveal('.featured-text-card',{})
 sr.reveal('.featured-name',{delay: 100})
@@ -76,6 +79,7 @@ reset: true
 
 srLeft.reveal('.about-info',{delay: 100})
 srLeft.reveal('.contact-info',{delay: 100})
+srLeft.reveal('.research',{delay:100})
 
 /* -- ABOUT SKILLS & FORM BOX -- */
 const srRight = ScrollReveal({
@@ -87,6 +91,10 @@ reset: true
 
 srRight.reveal('.skills-box',{delay: 100})
 srRight.reveal('.form-control',{delay: 100})
+srRight.reveal('.community-service',{delay:100})
+srRight.reveal('.professional-development',{delay: 100})
+
+
 
 
 
