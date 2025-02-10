@@ -75,111 +75,82 @@ i {
 /* ------- BASE -------- */
 body {
     background: var(--body-color);
-    padding-top: 100px;
 }
 .container {
     width: 100%;
     position: relative;
 }
 
+
 /* ----- NAVIGATION BAR ----- */
-nav {
+.navbar {
+    background-color: #000000;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 160px !important; /* Ensures height is forced to 300px */
-    background: var(--body-color);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px;
+    top: 0;
     z-index: 1000;
-    display: flex;
-    flex-direction: column; /* Ensures stacked layout */
-    align-items: center; /* Centers content */
-    justify-content: center; /* Centers vertically */
 }
 
-
-
-
-.nav-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.brand-container {
     text-align: center;
-    
-   
-
+    margin-bottom: 1rem;
 }
 
-/* Style the logo */
-.nav-logo .nav-name {
-    font-size: 40px;
-    font-weight: 700;
+.logo {
+    font-size: 2.5rem;
+    font-weight: bold;
     color: deepskyblue;
+    letter-spacing: 2px;
+}
+
+.tagline {
+    color: var(--text-color-third);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     font-style: italic;
-   
+    font-weight: 700;
 }
 
-/* Style the tagline */
-.nav-tagline {
-    font-size: 24px;
-    font-weight: 800;
-    color:crimson;
-    margin-top: -10px;
-   
-   
-}
-
-/* Adjust nav menu */
 .nav-menu {
-    margin-top: -30px;
-}
-.nav_menu_list {
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    gap: 2rem;
     list-style: none;
-    padding: 0;
 }
 
-.nav_list a {
-    text-decoration: none;
-    color: var(--text-color-second);
-    font-weight: 300;
-    padding: 10px 15px;
-    font-size: 18px;
-    
+.nav-item {
+    padding: 0.5rem 1rem;
 }
 
 .nav-link {
     text-decoration: none;
-    color: var(--text-color-second); /* Light Gray */
-    font-weight: 500;
-    padding-inline: 15px;
-    margin-inline: 20px;
+    color: white;
+    font-weight: 700;
+    transition: color 0.3s ease;
 }
-.nav-menu-btn {
-    display: none;
+
+.nav-link:hover {
+    color: #e74c3c;
 }
-.nav-menu-btn i {
-    font-size: 28px;
-    cursor: pointer;
+
+
+
+@media (max-width: 768px) {
+    .logo {
+        font-size: 2rem;
+    }
+    .tagline {
+        font-size: 0.9rem;
+    }
+    .nav-menu {
+        gap: 1rem;
+    }
 }
-.active-link {
-    position: relative;
-    color: var(--text-color-third); /* Royal Purple */
-    transition: .3;
-}
-.active-link::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: -15px;
-    transform: translate(-50%, -50%);
-    width: 5px;
-    height: 5px;
-    background: var(--text-color-third); /* Royal Purple */
-    border-radius: 50%;
-}
+
 
 /* ----- WRAPPER DESIGN ----- */
 .wrapper {
