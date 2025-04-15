@@ -4,6 +4,11 @@
     transform-origin: top left; /* Ensure scaling starts from the top-left corner */
     overflow-x: hidden;
 <head>
+<!-- Firebase App (Core) SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js"></script>
+<!-- Firebase App (Core) SDK -->
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <head>
     <meta charset="UTF-8">
@@ -294,100 +299,149 @@
      
 
        <!-- -------------- CONTACT BOX ---------------- -->
-       <section class="section" id="contact">
-          <div class="top-header">
-            <h1>Get in Touch</h1>
-            <span>-----------------------------------------</span>
-          </div>
-          <div class="row">
-             <div class="col">
-                <div class="contact-info">
-                    <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
-                    <p><i class="uil uil-envelope"></i> Email: rmutende@kibu.ac.ke</p>
-                    <p><i class="uil uil-envelope"></i> Email: rose.oranga89@gmail.com</p>
-                    <p><i class="uil uil-phone"></i> Tel: +254 724400442</p>
-                    <p><i class="uil uil-map-marker"></i> Address: P.O. Box 1699-50200, Bungoma, Kenya</p>
-                </div>
-             </div>
-             <!-- Add EmailJS Library -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-<div class="col">
-    <div class="form-control">
-        <div class="form-inputs">
-            <input type="text" id="name" class="input-field" placeholder="Name" required>
-            <input type="email" id="email" class="input-field" placeholder="Email" required>
-        </div>
-        <div class="text-area">
-            <textarea id="message" placeholder="Message" required></textarea>
-        </div>
-        <div class="form-button">
-            <button class="btn" onclick="sendEmail()">Send <i class="uil uil-message"></i></button>
-        </div>
-        <!-- Success message container -->
-        <div id="success-message" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
-            Message sent successfully from <span id="sender-email"></span>!
-        </div>
-        <!-- Error message container -->
-        <div id="error-message" style="display:none; color: red; font-weight: bold; margin-top: 10px;">
-            Failed to send message. Please try again.
-        </div>
+      <!-- -------------- CONTACT BOX ---------------- -->
+<section class="section" id="contact">
+    <div class="top-header">
+        <h1>Get in Touch</h1>
+        <span>-----------------------------------------</span>
     </div>
-</div>
+    <div class="row">
+        <div class="col">
+            <div class="contact-info">
+                <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
+                <p><i class="uil uil-envelope"></i> Email: rmutende@kibu.ac.ke</p>
+                <p><i class="uil uil-envelope"></i> Email: rose.oranga89@gmail.com</p>
+                <p><i class="uil uil-phone"></i> Tel: +254 724400442</p>
+                <p><i class="uil uil-map-marker"></i> Address: P.O. Box 1699-50200, Bungoma, Kenya</p>
+            </div>
+        </div>
 
-<script>
-    // Initialize EmailJS
-    (function(){
-        emailjs.init("_HbcUmTKKYaC74iT1"); // Your Public Key
-    })();
+        <!-- Add Required Libraries -->
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
 
-    function sendEmail() {
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
+        <div class="col">
+            <div class="form-control">
+                <div class="form-inputs">
+                    <input type="text" id="name" class="input-field" placeholder="Name" required>
+                    <input type="email" id="email" class="input-field" placeholder="Email" required>
+                </div>
+                <div class="text-area">
+                    <textarea id="message" placeholder="Message" required></textarea>
+                </div>
+                <div class="form-button">
+                    <button class="btn" onclick="sendEmail()">Send <i class="uil uil-message"></i></button>
+                </div>
+                <!-- Success message container -->
+                <div id="success-message" style="display:none; color: green; font-weight: bold; margin-top: 10px;">
+                    Message sent successfully from <span id="sender-email"></span>!
+                </div>
+                <!-- Error message container -->
+                <div id="error-message" style="display:none; color: red; font-weight: bold; margin-top: 10px;">
+                    Failed to send message. Please try again.
+                </div>
+            </div>
+        </div>
 
-        if (!name || !email || !message) {
-            document.getElementById("error-message").innerText = "Please fill in all fields.";
-            document.getElementById("error-message").style.display = "block";
-            return;
-        }
+        <script>
+            // Initialize EmailJS
+            (function(){
+                emailjs.init("_HbcUmTKKYaC74iT1"); // Your Public Key
+            })();
 
-        const templateParams = {
-            from_name: name,
-            from_email: email,
-            message: message
-        };
+            // Firebase configuration - using your provided credentials
+            const firebaseConfig = {
+                apiKey: "AIzaSyCs438roIWqVaAEFxQ7qKOu4Hu1w5qu-yQ",
+                authDomain: "rmutende-stem.firebaseapp.com",
+                projectId: "rmutende-stem",
+                storageBucket: "rmutende-stem.appspot.com",
+                messagingSenderId: "253914537576",
+                appId: "1:253914537576:web:7df6219f4b562879b725dd",
+                measurementId: "G-RPRV5F3DZW"
+            };
 
-        emailjs.send("service_c53v4mf", "template_2o6vtxm", templateParams)
-            .then(response => {
-                // Hide error message if any
-                document.getElementById("error-message").style.display = "none";
+            // Initialize Firebase
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            const db = firebase.firestore();
 
-                // Show success message and display the sender's email
-                document.getElementById("sender-email").innerText = email;  // Display the sender's email
-                document.getElementById("success-message").style.display = "block";
+            async function sendEmail() {
+                const name = document.getElementById("name").value;
+                const email = document.getElementById("email").value;
+                const message = document.getElementById("message").value;
 
-                // Optionally, reset the form fields
-                document.getElementById("name").value = "";
-                document.getElementById("email").value = "";
-                document.getElementById("message").value = "";
-                console.log("Success:", response);
-            })
-            .catch(error => {
-                // Hide success message if any
-                document.getElementById("success-message").style.display = "none";
+                // Validate inputs
+                if (!name || !email || !message) {
+                    document.getElementById("error-message").innerText = "Please fill in all fields.";
+                    document.getElementById("error-message").style.display = "block";
+                    return;
+                }
 
-                // Show error message
-                document.getElementById("error-message").innerText = "Failed to send message. Please try again.";
-                document.getElementById("error-message").style.display = "block";
+                // Validate email format
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById("error-message").innerText = "Please enter a valid email address.";
+                    document.getElementById("error-message").style.display = "block";
+                    return;
+                }
 
-                console.error("Error:", error);
-            });
-    }
-</script>
+                const templateParams = {
+                    from_name: name,
+                    from_email: email,
+                    message: message
+                };
 
-          </div>
-       </section>
+                try {
+                    // Send email first
+                    const emailResponse = await emailjs.send(
+                        "service_c53v4mf", 
+                        "template_2o6vtxm", 
+                        templateParams
+                    );
+
+                    // Then store in Firebase
+                    const docRef = await db.collection("contactSubmissions").add({
+                        name: name,
+                        email: email,
+                        message: message,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        status: "received"
+                    });
+
+                    // Show success message
+                    document.getElementById("error-message").style.display = "none";
+                    document.getElementById("sender-email").innerText = email;
+                    document.getElementById("success-message").style.display = "block";
+
+                    // Reset form
+                    document.getElementById("name").value = "";
+                    document.getElementById("email").value = "";
+                    document.getElementById("message").value = "";
+
+                    console.log("Email sent:", emailResponse);
+                    console.log("Document written with ID: ", docRef.id);
+                } catch (error) {
+                    console.error("Error:", error);
+                    document.getElementById("success-message").style.display = "none";
+                    document.getElementById("error-message").innerText = "Failed to send message. Please try again later.";
+                    document.getElementById("error-message").style.display = "block";
+                    
+                    // Optional: Log the error to Firebase for debugging
+                    try {
+                        await db.collection("errorLogs").add({
+                            error: error.toString(),
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            context: "contactFormSubmission"
+                        });
+                    } catch (logError) {
+                        console.error("Failed to log error:", logError);
+                    }
+                }
+            }
+        </script>
+    </div>
+</section>
 
     </main>
 
@@ -435,5 +489,29 @@
 
     <!-- ----- MAIN JS ----- -->
     <script src="js/main.js"></script>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+//   const firebaseConfig = {
+//     apiKey: "AIzaSyCs438roIWqVaAEFxQ7qKOu4Hu1w5qu-yQ",
+//     authDomain: "rmutende-stem.firebaseapp.com",
+//     projectId: "rmutende-stem",
+//     storageBucket: "rmutende-stem.firebasestorage.app",
+//     messagingSenderId: "253914537576",
+//     appId: "1:253914537576:web:7df6219f4b562879b725dd",
+//     measurementId: "G-RPRV5F3DZW"
+//   };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
 </body>
 </html>
