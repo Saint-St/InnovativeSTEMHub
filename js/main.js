@@ -50,8 +50,8 @@ const sr = ScrollReveal({
       reset: true     
 })
 /* download cv script*/
-function downloadCV(){
-  window.location.href="file/Dr.AtienoMutendeCV.pdf";
+function downloadCV() {
+    window.open("file/Dr.AtienoMutendeCV.pdf", "_blank"); // Opens the CV in a new tab
 }
 /* -- HOME -- */
 sr.reveal('.featured-text-card',{})
