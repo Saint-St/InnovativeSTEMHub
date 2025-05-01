@@ -721,6 +721,12 @@ footer {
     margin-top: 10px;
     color: var(--color-white);
 }
+.bottom-footer p:last-child {
+    font-style: italic;
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
