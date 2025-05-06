@@ -28,4 +28,4 @@ jobs:
             node_modules/
             .env
           # Optional: Include hidden files (e.g., .htaccess)
-          git-ftp-args: --insecure
+          # git-ftp-args: --insecure
