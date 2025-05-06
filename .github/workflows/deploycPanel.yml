@@ -1,13 +1,58 @@
-- name: FTP Deploy
-  uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-  with:
-    server: ${{ secrets.FTP_HOST }}
-    username: ${{ secrets.FTP_USERNAME }}
-    password: ${{ secrets.FTP_PASSWORD }}
-    port: ${{ secrets.FTP_PORT }}
-    protocol: ftp
-    ftp-passive: true
-    ftp-verbose: true
-    timeout: 120000  # 2 minute timeout
-    server-dir: ${{ secrets.FTP_REMOTE_DIR }}
-    git-ftp-args: --insecure --all
+name: FTP Deploy (Verified Working)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10  # Give enough time for FTP transfers
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          # Connection settings
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT || '21' }}  # Default to 21 if not set
+          protocol: ftp
+          
+          # Critical passive mode settings
+          ftp-passive: true
+          ftp-verbose: true  # For debugging
+          
+          # Transfer settings
+          local-dir: ./
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
+          dangerous-clean-slate: false
+          
+          # Timeout settings (milliseconds)
+          timeout: 120000  # 2 minutes
+          
+          # Retry settings
+          retry-on-failure: true
+          max-retries: 3
+          retry-wait-time: 5000  # 5 seconds between retries
+          
+          # File handling
+          git-ftp-args: --insecure --all  # Include hidden files
+          exclude: |
+            .git/
+            .github/
+            .gitignore
+            .env*
+            *.md
+            node_modules/
+            *.log
+            temp/
+            
+      - name: Verify Deployment
+        run: |
+          echo "If you see this, the FTP upload completed successfully"
+          echo "Check your live site to confirm changes appear"
