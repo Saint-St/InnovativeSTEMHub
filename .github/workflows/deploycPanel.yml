@@ -1,4 +1,35 @@
-name: FTP Deploy
+# name: FTP Deploy
+
+# on:
+#   push:
+#     branches: [ main ]
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+
+#       - name: Upload via FTP
+#         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+#         with:
+#           server: ${{ secrets.FTP_HOST }}
+#           username: ${{ secrets.FTP_USERNAME }}
+#           password: ${{ secrets.FTP_PASSWORD }}
+#           port: ${{ secrets.FTP_PORT }}
+#           local-dir: ./
+#           server-dir: ${{ secrets.FTP_REMOTE_DIR }}
+#           exclude: |
+#             .git/
+#             .github/
+#             .gitignore
+#             node_modules/
+#             .env
+#           # Optional: Include hidden files (e.g., .htaccess)
+#           # git-ftp-args: --insecure
+name: FTP Deploy with Passive Mode
 
 on:
   push:
@@ -19,13 +50,20 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
+          protocol: ftp
+          ftp-passive: true
+          ftp-verbose: true
+          timeout: 60000
+          retry-on-failure: true
+          max-retries: 3
           local-dir: ./
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}
+          git-ftp-args: --insecure --all
           exclude: |
             .git/
             .github/
             .gitignore
             node_modules/
             .env
-          # Optional: Include hidden files (e.g., .htaccess)
-          # git-ftp-args: --insecure
+            *.md
+            *.log
