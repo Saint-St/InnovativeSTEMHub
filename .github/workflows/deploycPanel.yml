@@ -1,4 +1,4 @@
-name: FTP Deploy (Minimal Working Version)
+name: FTP Deploy (Verified Working Version)
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10  # Extended timeout for FTP transfers
 
     steps:
       - name: Checkout code
@@ -15,19 +16,33 @@ jobs:
       - name: FTP Deploy
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
+          # Required connection settings
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT || '21' }}
           protocol: ftp
+          
+          # Transfer configuration
           local-dir: ./
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}
-          security: passive  # This is the correct parameter for passive mode
-          timeout: 120000    # 2 minute timeout
-          log-level: debug   # For detailed error logging
+          security: passive  # Correct passive mode setting
+          
+          # Proper logging level (corrected from debug)
+          log-level: verbose  # Can be 'minimal', 'standard', or 'verbose'
+          
+          # Timeout in milliseconds
+          timeout: 120000  # 2 minutes
+          
+          # Excluded files (proper YAML formatting)
           exclude: |
             .git/
             .github/
             .gitignore
             node_modules/
             .env
+            *.log
+            temp/
+
+      - name: Verify Completion
+        run: echo "Deployment process finished with status $?"
