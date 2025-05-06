@@ -1,9 +1,15 @@
+---
 deployment:
   tasks:
+    - echo "Starting deployment to Innovat6"
     - export DEPLOYPATH=/home/Innovat6/public_html
-    - /bin/cp -r css $DEPLOYPATH/
-    - /bin/cp -r file $DEPLOYPATH/
-    - /bin/cp -r images $DEPLOYPATH/
-    - /bin/cp -r js $DEPLOYPATH/
-    - /bin/cp index.html $DEPLOYPATH/
-    - /bin/cp sitemap.xml $DEPLOYPATH/
+    # Copy all visible content
+    - /bin/cp -rf * $DEPLOYPATH/
+    # Copy hidden files (optional)
+    - /bin/cp -rf .[^.]* $DEPLOYPATH/
+    # Set permissions (optional)
+    - /bin/chmod -R 755 $DEPLOYPATH/css
+    - /bin/chmod -R 755 $DEPLOYPATH/js
+    # Cleanup and verification
+    - echo "Deployment completed at $(date)"
+    - /bin/ls -la $DEPLOYPATH
