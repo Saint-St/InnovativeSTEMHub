@@ -26,7 +26,7 @@ jobs:
           # Transfer configuration
           local-dir: ./
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}
-          security: active  # Correct passive mode setting
+          security: loose  # Correct passive mode setting
           
           # Proper logging level (corrected from debug)
           log-level: verbose  # Can be 'minimal', 'standard', or 'verbose'
