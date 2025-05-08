@@ -1,24 +1,35 @@
-name: FTP Deploy
+name: Deploy to cPanel via FTP
 
 on:
   push:
     branches: [ main ]
+  # Optional: Add workflow_dispatch to allow manual triggers
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+      
+    # Optional: Add build steps if needed (e.g., for Node.js, PHP, etc.)
+    # - name: Install dependencies
+    #   run: npm install
+    #
+    # - name: Build project
+    #   run: npm run build
     
     - name: FTP Deploy
-      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      uses: SamKirkland/FTP-Deploy-Action@v4
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./ # or your specific build directory
-        server-dir: /public_html/
-        protocol: ftp      # Explicitly set to ftp (not sftp)
-        ftp-passive: true  # Force passive mode
-        ftp-verbose: true  # # or your remote directory
+        local-dir: ./ # or ./dist/ if you have a build step
+        server-dir: /public_html/ # adjust to your cPanel directory
+        exclude: |
+          .git*
+          .github/
+          README.md
+          *.env
