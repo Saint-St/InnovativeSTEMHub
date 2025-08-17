@@ -1,4 +1,4 @@
-name: Deploy Static Site to cPanel via FTP
+name: Deploy Static Site to cPanel via FTPS
 
 on:
   push:
@@ -14,18 +14,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Deploy static site via FTP
-      - name: Deploy to server via FTP
+      # Deploy static site via FTPS
+      - name: Deploy to server via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.innovativestemhub.com
           username: innovative6@innovativestemhub.com
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
+          protocol: ftps
           local-dir: "./"
           server-dir: "/public_html/"
           exclude: |
+            **/.git/**
             **/.git*
             **/.github/**
             **/README.md
+            **/images/rose.png  # Temporarily exclude if unoptimized
           log-level: verbose
+         
