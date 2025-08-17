@@ -1,4 +1,4 @@
-name: Deploy to cPanel via FTP
+name: Deploy Static Site to cPanel via FTP
 
 on:
   push:
@@ -14,18 +14,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Deploy frontend via FTP
-      - name: Deploy frontend to server via FTP
+      # Deploy static site via FTP
+      - name: Deploy to server via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
+          server: ftp.innovativestemhub.com
+          username: innovative6@innovativestemhub.com
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          
+          local-dir: "./"
           server-dir: "/public_html/"
           exclude: |
-            **/node_modules/**
-            **/.env
-            **/uploads/**
+            **/.git*
+            **/.github/**
+            **/README.md
           log-level: verbose
