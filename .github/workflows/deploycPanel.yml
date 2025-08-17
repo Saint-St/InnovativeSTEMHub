@@ -1,4 +1,4 @@
-name: Deploy Static Site to cPanel via FTPS
+name: Deploy Static Site to cPanel via ftploy
 
 on:
   push:
@@ -14,22 +14,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Deploy static site via FTPS
-      - name: Deploy to server via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      # Set up Node.js (required for ftploy)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          server: ftp.innovativestemhub.com
-          username: innovative6@innovativestemhub.com
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftps
-          local-dir: "./"
-          server-dir: "/public_html/"
-          exclude: |
-            **/.git/**
-            **/.git*
-            **/.github/**
-            **/README.md
-            **/images/rose.png  # Temporarily exclude if unoptimized
-          log-level: verbose
-         
+          node-version: '18'
+
+      # Install ftploy
+      - name: Install ftploy
+        run: npm install -g ftploy
+
+      # Deploy static site via ftploy
+      - name: Deploy to server via FTP
+        run: |
+          ftploy \
+            --username="${{ secrets.FTP_USERNAME }}" \
+            --password="${{ secrets.FTP_PASSWORD }}" \
+            --host="ftp.innovativestemhub.com" \
+            --port=21 \
+            --localRoot="./" \
+            --remoteRoot="/public_html/" \
+            --exclude=".git,.github,README.md" \
+            --timeout=300000  # 5-minute timeout in milliseconds
+        env:
+          FTPLOY_TIMEOUT: 300000  # Override timeout if supported
+          FTPLOY_RETRIES: 3       # Retry 3 times if supported
